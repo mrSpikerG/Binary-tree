@@ -19,7 +19,6 @@ private:
 	Node<T>* head;
 
 	void add(T value, Node<T>** tmp) {
-
 		if ((*tmp) == NULL) {
 			(*tmp) = new Node<T>;
 			(*tmp)->value = value;
@@ -35,6 +34,23 @@ private:
 			add(value, &(*tmp)->left);
 		}
 	}
+
+	void show(Node<T>** tmp) {
+
+
+
+		cout << (*tmp)->value<<"\n";
+		if ((*tmp)->right != NULL) {
+			cout << "1";
+			show(&(*tmp)->right);
+		}
+		if ((*tmp)->left != NULL) {
+			cout << "2";
+			show(&(*tmp)->left);
+		}
+
+	}
+
 public:
 	tree()
 	{
@@ -46,16 +62,12 @@ public:
 		Node<T>** tmp = &this->head;
 		this->add(value, tmp);
 	}
+
 	void show() {
-
-		cout << head->value;
-		/*Node<T>* tmp = this->head;
-
-		cout << "\n"
-			<< "left" << head->left
-			<< "right" << head->right;*/
-
+		Node<T>** tmp = &this->head;
+		show(tmp);
 	}
+
 	Node<T>* getHead() {
 		return head;
 	}
@@ -72,9 +84,9 @@ int main()
 
 
 	Node<int>* tmp = test.getHead();
-	test.add(1);
+	test.add(5);
 	test.add(7);
 	test.add(3);
-
+	test.add(8);
 	test.show();
 }
