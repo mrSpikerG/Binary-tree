@@ -35,18 +35,19 @@ private:
 		}
 	}
 
-	void show(Node<T>** tmp) {
+	
+	void show(Node<T>** tmp,unsigned int depth) {
 
-
+		for (unsigned int i = 0; i < depth; i++) {
+			cout << "-";
+		}
 
 		cout << (*tmp)->value<<"\n";
 		if ((*tmp)->right != NULL) {
-			cout << "1";
-			show(&(*tmp)->right);
+			show(&(*tmp)->right,depth+1);
 		}
 		if ((*tmp)->left != NULL) {
-			cout << "2";
-			show(&(*tmp)->left);
+			show(&(*tmp)->left,depth+1);
 		}
 
 	}
@@ -65,7 +66,7 @@ public:
 
 	void show() {
 		Node<T>** tmp = &this->head;
-		show(tmp);
+		show(tmp,0);
 	}
 
 	Node<T>* getHead() {
@@ -88,5 +89,9 @@ int main()
 	test.add(7);
 	test.add(3);
 	test.add(8);
+	test.add(7);
+	test.add(10);
+	test.add(1);
+	test.add(2);
 	test.show();
 }
