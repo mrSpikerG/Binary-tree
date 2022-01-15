@@ -21,11 +21,12 @@ private:
 
 
 	void add(T value, Node<T>*& tmp) {
+
+
+
 		if (tmp == NULL) {
 			tmp = new Node<T>;
 			tmp->value = value;
-			this->size++;
-			//this->head = (*tmp);
 			return;
 		}
 
@@ -62,10 +63,6 @@ private:
 				tmp[j] = mas[i];
 				j++;
 			}
-			else {
-				// 5 7 3 8 6 7
-				//this->size--;
-			}
 		}
 		this->size = j;
 		this->mas = new T[size];
@@ -75,20 +72,14 @@ private:
 	}
 
 	void remove(T value, Node<T>** tmp) {
-
-		//cout << this->size;
-		for (int i = 0; i < this->size; i++) {
-			//cout << "\n" << mas[i];
-		}
-
 		//супер-мега костыль :D
 		delete this->head;
 		this->head = NULL;
 		unsigned long long temp = this->size;
 		size = 0;
 		for (int i = 0; i < temp; i++) {
-			add(mas[i]);
-			//cout << mas[i]<<"\n";
+			add(mas[i],this->head);
+			this->size++;
 		}
 
 	}
@@ -124,18 +115,23 @@ public:
 		}
 	}
 
+	void addWithoutMas(T value) {
+
+	}
+
 	void add(T value) {
-		if (this->head == NULL) {
-			this->mas = new T[size + 1];
-			this->mas[size] = value;
+
+		T* temp = new T[this->size + 1];
+		for (int i = 0; i < size; i++) {
+			temp[i] = mas[i];
 		}
-		else {
-			T* tmp = new T[size + 1];
-			tmp = mas;
-			tmp[size] = value;
-			this->mas = tmp;
+		temp[this->size] = value;
+		delete mas;
+		this->size++;
+		mas = new T[this->size];
+		for (int i = 0; i < size; i++) {
+			mas[i] = temp[i];
 		}
-		//Node<T>*& tmp = &this->head;
 		this->add(value, this->head);
 	}
 
@@ -169,8 +165,9 @@ int main()
 	test.add(1);
 	test.add(2);
 
-	//cout<<test.isIn(7);
-	//test.remove(3);
-	//test.getSize();
+	//cout<<test.isIn(2)<<"\n\n";
+	test.remove(7);
+	test.remove(3);
+	//cout<<test.getSize()<<"\n";
 	test.show();
 }
